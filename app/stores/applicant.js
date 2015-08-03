@@ -15,27 +15,20 @@ function generateCode(url, email, done) {
          .set("Content-Type", "applicant/json")
          .send({ email: email })
          .end(function(err, res) {
-           if (!err && res.body && res.body.user) {
-             console.log('生成邀请码');
-             /* eslint-disable block-scoped-var */
-             AuthStore.notifyChange();
-             /* eslint-enable block-scoped-var */
-           }
-           if (done) {
-             done(err, _applicant);
-           }
+           return res.body;
          });
 }
 const ApplicantStore = {
   init: function() {
     if (_initCalled) {
-      return;
+      return ;
     }
     _initCalled = true;
     this.fetchUser();
   },
   invitationcode: function(email,  done) {
-    generateCode(URLS.GENERATE_CODE, email, done);
+    let code = generateCode(URLS.GENERATE_CODE, email, done);
+
   },
   notifyChange: function() {
     _changeListeners.forEach(function(listener) {

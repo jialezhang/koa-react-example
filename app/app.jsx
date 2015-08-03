@@ -13,21 +13,28 @@ import NullPage from "./pages/null";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import SignOut from "./pages/signout";
+import EventsPage from "./pages/events";
 
 const container = document.getElementById("content");
 
 const routes = (
   <Route handler={Application}>
-    <Route name="anonymous" path="/auth" handler={AnonymousLayout}>
+    <Route name="anonymous" path="/auth" handler={ AnonymousLayout }>
       <Route name="sign-in" path="signin" handler={SignInPage} />
       <Route name="sign-up" path="signup" handler={SignUpPage} />
       <Route name="sign-out" path="signout" handler={SignOut} />
       <NotFoundRoute handler={NotFoundPage} />
     </Route>
-    <Route name="home" path="/" handler={Layout}>
+    <Route name="home" path="/" handler={ Layout }>
       <DefaultRoute name="index" handler={IndexPage} />
       <Route name="null-page" path="null" handler={NullPage} />
       <Route name="profile" path="profile" handler={NullPage} />
+      <NotFoundRoute handler={NotFoundPage} />
+    </Route>
+    <Route name="events" path="/events" handler={Layout}>
+      <DefaultRoute name="index" handler={ IndexPage } />
+      <Route name="index" path="index" handler={ EventsPage } />
+      <Route name="null-page" path="null" handler={NullPage} />
       <NotFoundRoute handler={NotFoundPage} />
     </Route>
   </Route>

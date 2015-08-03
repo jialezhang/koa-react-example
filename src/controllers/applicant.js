@@ -25,7 +25,6 @@ exports.addApplicant = function *() {
 
 exports.createCode = function *() {
   let code = randomstring.generate(6);
-  console.log(this);
   this.body = { code: code };
 }
 

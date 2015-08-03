@@ -4,6 +4,7 @@ var fs = require("fs");
 
 exports.signIn = function *() {
   var _this = this;
+
   yield* passport.authenticate("local", function*(err, user, info) {
     if (err) {
       throw err;
@@ -19,7 +20,9 @@ exports.signIn = function *() {
 
 exports.getCurrentUser = function *() {
   if (this.passport.user) {
+
     this.body = { user: this.passport.user };
+
   }
   this.status = 200;
 };

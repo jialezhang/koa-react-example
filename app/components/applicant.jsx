@@ -43,8 +43,7 @@ export default class Counter extends React.Component {
     e.preventDefault();
     let email = this.refs.applicantEmail.getValue();
     ApplicantStore.invitationcode(email, function() {
-
-      console.log('done');
+      this.setState({ code: res.body.code })
     });
   }
 

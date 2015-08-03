@@ -4,7 +4,8 @@ var Router = require("koa-router");
 var countController = require("../src/controllers/count");
 var indexController = require("../src/controllers/index");
 var authController = require("../src/controllers/auth");
-var applicantController = require ("../src/controllers/applicant")
+var applicantController = require ("../src/controllers/applicant");
+var eventsController = require ("../src/controllers/events");
 
 var secured = function *(next) {
   if (this.isAuthenticated()) {
@@ -36,12 +37,19 @@ module.exports = function(app, passport) {
 
   router.get('/profile', authController.profile);
 
+  /* router.get('/events/index', function *() {
+     this.type = "html";
+     yield eventsController.month.apply(this);
+     }); */
+  router.get('/events/index', eventsController.index );
+  router.get('/events/month', secured, eventsController.month );
   /* invitationcode */
+
   router.get("/generatecode", applicantController.getCode);
   router.post("/generatecode", applicantController.createCode);
 
   // secured routes
-   router.get("/value", secured, countController.getCount);
+  router.get("/value", secured, countController.getCount);
   router.get("/inc", secured, countController.increment);
   router.get("/dec", secured, countController.decrement);
   app.use(router.routes());

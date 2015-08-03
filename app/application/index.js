@@ -62,11 +62,4 @@ const App = React.createClass({
   },
 });
 
-const FullHeightApp = makeFullHeightComponent(App, () => {
-  let height = window.innerHeight;
-  let navbarHeight = document.getElementsByClassName("main-container")[0].getBoundingClientRect().top;
-  let footerHeight = document.getElementsByClassName("footer")[0].offsetHeight;
-  return height - navbarHeight - footerHeight;
-});
-
 export default FullHeightApp;
